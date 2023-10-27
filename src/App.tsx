@@ -22,6 +22,16 @@ import AddCustomer from "./pages/basic/customer/AddCustomer";
 import Qna from "./pages/basic/qna/Qna";
 import Customer from "./pages/basic/customer/Customer";
 import FaqList from "./pages/normal/faq/FaqList";
+import CinemaFaqList from "./pages/normal/cinema/CinemaFaqList";
+import AddFaq from "./pages/normal/faq/AddFaq";
+import AddCinemaFaq from "./pages/normal/cinema/AddCinemaFaq";
+import Faq from "./pages/normal/faq/Faq";
+import CinemaFaq from "./pages/normal/cinema/CinemaFaq";
+import ReplyBoardList from "./pages/normal/replyBoard/ReplyBoardList";
+import ThreadBoardList from "./pages/normal/threadBoard/ThreadBoardList";
+import AddReplyBoard from "./pages/normal/replyBoard/AddReplyBoard";
+import AddThreadBoard from "./pages/normal/threadBoard/AddThreadBoard";
+import ReplyBoard from "./pages/normal/replyBoard/ReplyBoard";
 
 
 function App() {
@@ -77,6 +87,40 @@ function App() {
 
           {/* faq */}
           <Route path="/faq" element = {<FaqList/>}/>
+          <Route path="/add-faq" element = {<AddFaq/>}/>
+          <Route path="/faq/:no" element = {<Faq/>}/>
+
+          {/* cinema */}
+          {/* 연습5 ) cinema faq 전체조회 기능을 구현하세요. */}
+          {/* 단 , 화면에 아코디언으로 보여주새요 */}
+          {/* 프론트 - ICinemaFaq.ts (타입 : schema.sql) */}
+           {/*         CinemaFaqService.ts (axios 공통 crud 탐수)  */}
+           {/*         CinemaFaqList.tsx (전체조회)  */}
+           {/*         App.tsx (메뉴 달기 : CinemaFaq  */}
+           {/*벡엔드 - 모델 엔티티 : CinemaFaq
+                      CinemaFaqRepository
+                      CinemaFaqService
+                      CinemaFaqController
+           */}
+           <Route path="/cinema-faq" element = {<CinemaFaqList/>}/>
+           <Route path="/add-cinema-faq" element = {<AddCinemaFaq/>}/>
+           <Route path="/cinema-faq/:cfno" element = {<CinemaFaq/>}/>
+
+           {/* replyBoard */}
+           <Route path="/reply-board" element = {<ReplyBoardList/>}/>
+           <Route path="/add-reply-board" element = {<AddReplyBoard/>}/>
+           {/* 정리 : boardParent = 0 이면 부모글을 클릭 */}
+           {/* 정리 : boardParent = 0 아니면 자식글을 클릭 */}
+           <Route path="/reply-board/bid/:bid/boardParent/:boardParent" element={<ReplyBoard />} />
+
+            
+          {/* 연습 1) url : / thread-board 쓰레드보드(답변형게시판)
+               프론트 : ThreadBoardList (전체조회 페이지)
+               계층형 기능을 추가하세요 (프론트/ 백엔드)          */}
+           {/* threadBoard */}
+           <Route path="/thread-board" element = {<ThreadBoardList/>}/>
+           <Route path="/add-thread-board" element = {<AddThreadBoard/>}/>
+           <Route path="/thread-board/tid/:tid/tparent/:tparent" element={<ReplyBoard />} />
 
           {/* NotFound */}
           <Route path="*" element={<NotFound />} />

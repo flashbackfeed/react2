@@ -4,6 +4,7 @@ import TitleCom from "../../../components/common/TitleCom";
 import { Pagination } from "@mui/material";
 import FaqService from "../../../services/normal/faq/FaqService";
 import IFaq from "../../../types/normal/faq/IFaq";
+import { Link } from "react-router-dom";
 
 
 
@@ -122,38 +123,45 @@ function FaqList() {
           {faq &&
             faq.map((data, index) => (
               // 여기
-              <div className="accordion-item">
+              <div className="accordion-item" key={data.no}>
+                {/* 사용법 : 변수명 유일 :  1) h2(제목) : id = "heading0"  */}
+                {/* 사용법 :               1) div(본문) : aria-labelledby = "heading0"  */}
+                {/* 사용법 :               2) h2(제목) :  data-bs-target = "#collapse0"  */}
+                {/* 사용법 :               2) div(본문) : id = "collapse0"  */}
+                {/* 사용법 2: (h2) 화면 보이기/안보이기 css(class) */}
+                {/*            펼치기: className="accordion-button" */}
+                {/*            접기: className="accordion-button collapsed" */}
+                {/*           (div(본문))                                    */}
+                {/*            펼치기 : className="accordion-collapse collapse show" */}
+                {/*            접기 : className="accordion-collapse collapse" */}
                 {/* 제목 시작 */}
-                <h2 className="accordion-header" id="headingOne">
+                <h2 className="accordion-header" id={"heading" + index}>
                   <button
-                    className="accordion-button"
+                    className={index==0?"accordion-button":"accordion-button collapsed"}
                     type="button"
                     data-bs-toggle="collapse"
-                    data-bs-target="#collapseOne"
-                    aria-expanded="true"
-                    aria-controls="collapseOne"
+                    data-bs-target={"#collapse" + index}
+                    aria-expanded={index==0?"true":"false"}
+                    aria-controls={"collapse" + index}
                   >
-                    Accordion Item #1
+                    {/* 백엔드 데이터 */}
+                    {data.title}
                   </button>
                 </h2>
-                {/* 제목 끝 */}
-                {/* 본문 시작 */}
+                {/* 제목 끝 (data.title */}
+                {/* 본문 시작(data.content) 시작*/}
                 <div
-                  id="collapseOne"
-                  className="accordion-collapse collapse show"
-                  aria-labelledby="headingOne"
+                  id={"collapse" + index}
+                  className={index==0?"accordion-collapse collapse show":"accordion-collapse collapse"}
+                  aria-labelledby={"heading" + index}
                   data-bs-parent="#accordionExample"
                 >
                   <div className="accordion-body">
-                    <strong>This is the first item's accordion body.</strong> It
-                    is shown by default, until the collapse plugin adds the
-                    appropriate classes that we use to style each element. These
-                    classes control the overall appearance, as well as the
-                    showing and hiding via CSS transitions. You can modify any
-                    of this with custom CSS or overriding our default variables.
-                    It's also worth noting that just about any HTML can go
-                    within the <code>.accordion-body</code>, though the
-                    transition does limit overflow.
+                  {/* 백엔드 데이터 코딩 */}
+                  {data.content} &nbsp;
+                  <Link to={"/faq/" + data.no}>
+                      <span className="badge bg-success">Edit</span>
+                    </Link>
                   </div>
                 </div>
                 {/* 본문 끝 */}
